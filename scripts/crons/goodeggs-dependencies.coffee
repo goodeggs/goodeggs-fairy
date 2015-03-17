@@ -1,25 +1,10 @@
 fibrous = require 'fibrous'
 request = require 'request'
 semver = require 'semver'
-
-class GithubFileGateway
-  constructor: (@raw) ->
-    # noop
-
-  content: (encoding='utf8') ->
-    new Buffer(@raw.content, @raw.encoding).toString(encoding)
-
-class GithubRepoService
-
-  constructor: (@_client, {@user, @repo}) ->
-
-  getFile: fibrous (path) ->
-    raw = @_client.repos.sync.getContent {@user, @repo, path}
-    new GithubFileGateway raw
+Github = require 'goodeggs-fairy/app-services/github'
 
 module.exports = (bot, repo) ->
-  {github} = bot
-  repoService = new GithubRepoService github, user: repo.owner, repo: repo.name
+  repo = new Github(bot).repo(owner: repo.owner, name: repo.name)
   trace = (str) ->
     bot.trace "goodeggs-dependencies #{repo.owner}/#{repo.name}: #{str}"
 
@@ -40,7 +25,7 @@ module.exports = (bot, repo) ->
 
       # first check shrinkwrap
       try
-        json = JSON.parse(repoService.sync.getFile('npm-shrinkwrap.json').content())
+        json = JSON.parse(repo.sync.getFile('npm-shrinkwrap.json').content())
         if shrinkwrapVersion = json.dependencies[moduleName]?.version
           valid = semver.satisfies latestVersion, shrinkwrapVersion
           trace "#{moduleName} is #{valid and 'valid' or 'invalid'}"
@@ -49,7 +34,7 @@ module.exports = (bot, repo) ->
         throw e unless e.code is 404
 
         # no shrinkwrap? check package.json
-        json = JSON.parse(repoService.sync.getFile('package.json').content())
+        json = JSON.parse(repo.sync.getFile('package.json').content())
         if packageVersion = json.dependencies[moduleName]
           valid = semver.satisfies latestVersion, packageVersion
           trace "#{moduleName} is #{valid and 'valid' or 'invalid'}"
