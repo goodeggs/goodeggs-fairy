@@ -19,3 +19,7 @@ module.exports = (bot, repo, payload) ->
         trace file.filename
         trace file.patch
 
+  , (err) ->
+    console.error(err.stack or err) if err?
+    trace 'finished'
+
