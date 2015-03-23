@@ -8,6 +8,8 @@ module.exports =
    "goodeggs/garbanzo":
      crons:
        "0 0 */1 * * *": ['goodeggs-dependencies']
+     hooks:
+       'push': ['data-model-changes']
    "goodeggs/kale":
      crons:
        "0 0 */1 * * *": ['goodeggs-dependencies']
