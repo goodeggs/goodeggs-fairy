@@ -1,3 +1,4 @@
+fibrous = require 'fibrous'
 Github = require 'goodeggs-fairy/app-services/github'
 
 module.exports = (bot, repo, payload) ->
