@@ -28,8 +28,9 @@
     "fibers": "^1.0.5",
     "semver": "^4.3.1",
     "request": "^2.53.0",
-    "github": "^0.2.3"
+    "github": "^0.2.3",
+    "goodeggs-emailer": "^1.5.2",
+    "teacup": "^1.2.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

@@ -378,6 +378,364 @@
     "semver": {
       "version": "4.3.1",
       "from": "semver@"
+    },
+    "goodeggs-emailer": {
+      "version": "1.5.2",
+      "from": "goodeggs-emailer@",
+      "dependencies": {
+        "goodeggs-rolodex": {
+          "version": "1.1.2",
+          "from": "goodeggs-rolodex@>=1.0.3"
+        },
+        "juice": {
+          "version": "0.4.0",
+          "from": "juice@~0.4.0",
+          "dependencies": {
+            "cssom": {
+              "version": "0.2.5",
+              "from": "cssom@~0.2.5"
+            },
+            "jsdom": {
+              "version": "0.6.5",
+              "from": "jsdom@~0.6.0",
+              "dependencies": {
+                "htmlparser2": {
+                  "version": "3.8.2",
+                  "from": "htmlparser2@3.x",
+                  "dependencies": {
+                    "domhandler": {
+                      "version": "2.3.0",
+                      "from": "domhandler@2.3"
+                    },
+                    "domutils": {
+                      "version": "1.5.1",
+                      "from": "domutils@1.5",
+                      "dependencies": {
+                        "dom-serializer": {
+                          "version": "0.1.0",
+                          "from": "dom-serializer@0",
+                          "dependencies": {
+                            "domelementtype": {
+                              "version": "1.1.3",
+                              "from": "domelementtype@~1.1.1"
+                            },
+                            "entities": {
+                              "version": "1.1.1",
+                              "from": "entities@~1.1.1"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "domelementtype": {
+                      "version": "1.3.0",
+                      "from": "domelementtype@1"
+                    },
+                    "readable-stream": {
+                      "version": "1.1.13",
+                      "from": "readable-stream@1.1",
+                      "dependencies": {
+                        "core-util-is": {
+                          "version": "1.0.1",
+                          "from": "core-util-is@~1.0.0"
+                        },
+                        "isarray": {
+                          "version": "0.0.1",
+                          "from": "isarray@0.0.1"
+                        },
+                        "string_decoder": {
+                          "version": "0.10.31",
+                          "from": "string_decoder@~0.10.x"
+                        },
+                        "inherits": {
+                          "version": "2.0.1",
+                          "from": "inherits@~2.0.1"
+                        }
+                      }
+                    },
+                    "entities": {
+                      "version": "1.0.0",
+                      "from": "entities@1.0"
+                    }
+                  }
+                },
+                "nwmatcher": {
+                  "version": "1.3.4",
+                  "from": "nwmatcher@~1.3.1"
+                },
+                "cssstyle": {
+                  "version": "0.2.23",
+                  "from": "cssstyle@~0.2.3",
+                  "dependencies": {
+                    "cssom": {
+                      "version": "0.3.0",
+                      "from": "cssom@0.3.x"
+                    }
+                  }
+                },
+                "contextify": {
+                  "version": "0.1.13",
+                  "from": "contextify@~0.1.5",
+                  "dependencies": {
+                    "bindings": {
+                      "version": "1.2.1",
+                      "from": "bindings@*"
+                    },
+                    "nan": {
+                      "version": "1.5.3",
+                      "from": "nan@~1.5.0"
+                    }
+                  }
+                }
+              }
+            },
+            "batch": {
+              "version": "0.3.2",
+              "from": "batch@~0.3.2"
+            },
+            "superagent": {
+              "version": "0.14.9",
+              "from": "superagent@~0.14.0",
+              "dependencies": {
+                "qs": {
+                  "version": "0.6.5",
+                  "from": "qs@0.6.5",
+                  "resolved": "http://registry.nodejitsu.com/qs/-/qs-0.6.5.tgz"
+                },
+                "formidable": {
+                  "version": "1.0.9",
+                  "from": "formidable@1.0.9",
+                  "resolved": "http://registry.nodejitsu.com/formidable/-/formidable-1.0.9.tgz"
+                },
+                "mime": {
+                  "version": "1.2.5",
+                  "from": "mime@1.2.5",
+                  "resolved": "http://registry.nodejitsu.com/mime/-/mime-1.2.5.tgz"
+                },
+                "emitter-component": {
+                  "version": "1.0.0",
+                  "from": "emitter-component@1.0.0",
+                  "resolved": "http://registry.nodejitsu.com/emitter-component/-/emitter-component-1.0.0.tgz"
+                },
+                "methods": {
+                  "version": "0.0.1",
+                  "from": "methods@0.0.1",
+                  "resolved": "http://registry.nodejitsu.com/methods/-/methods-0.0.1.tgz"
+                },
+                "cookiejar": {
+                  "version": "1.3.0",
+                  "from": "cookiejar@1.3.0",
+                  "resolved": "http://registry.nodejitsu.com/cookiejar/-/cookiejar-1.3.0.tgz"
+                },
+                "debug": {
+                  "version": "0.7.4",
+                  "from": "debug@~0.7.2"
+                }
+              }
+            },
+            "commander": {
+              "version": "1.1.1",
+              "from": "commander@~1.1.1",
+              "dependencies": {
+                "keypress": {
+                  "version": "0.1.0",
+                  "from": "keypress@0.1.x"
+                }
+              }
+            },
+            "slick": {
+              "version": "1.10.4",
+              "from": "slick@~1.10.0"
+            }
+          }
+        },
+        "node-clock": {
+          "version": "0.1.1",
+          "from": "node-clock@>=0.1.1",
+          "dependencies": {
+            "timezone": {
+              "version": "0.0.39",
+              "from": "timezone@~0.0.23"
+            }
+          }
+        },
+        "nodemailer": {
+          "version": "1.3.2",
+          "from": "nodemailer@>=1.3.0",
+          "dependencies": {
+            "buildmail": {
+              "version": "1.2.1",
+              "from": "buildmail@^1.2.1",
+              "dependencies": {
+                "addressparser": {
+                  "version": "0.3.2",
+                  "from": "addressparser@^0.3.2"
+                },
+                "libbase64": {
+                  "version": "0.1.0",
+                  "from": "libbase64@^0.1.0"
+                },
+                "libqp": {
+                  "version": "0.1.1",
+                  "from": "libqp@^0.1.1"
+                }
+              }
+            },
+            "hyperquest": {
+              "version": "1.0.1",
+              "from": "hyperquest@^1.0.1",
+              "dependencies": {
+                "duplexer2": {
+                  "version": "0.0.2",
+                  "from": "duplexer2@~0.0.2",
+                  "dependencies": {
+                    "readable-stream": {
+                      "version": "1.1.13",
+                      "from": "readable-stream@~1.1.9",
+                      "dependencies": {
+                        "core-util-is": {
+                          "version": "1.0.1",
+                          "from": "core-util-is@~1.0.0"
+                        },
+                        "isarray": {
+                          "version": "0.0.1",
+                          "from": "isarray@0.0.1"
+                        },
+                        "string_decoder": {
+                          "version": "0.10.31",
+                          "from": "string_decoder@~0.10.x"
+                        },
+                        "inherits": {
+                          "version": "2.0.1",
+                          "from": "inherits@~2.0.1"
+                        }
+                      }
+                    }
+                  }
+                },
+                "through2": {
+                  "version": "0.6.3",
+                  "from": "through2@~0.6.3",
+                  "dependencies": {
+                    "readable-stream": {
+                      "version": "1.0.33",
+                      "from": "readable-stream@>=1.0.33-1 <1.1.0-0",
+                      "dependencies": {
+                        "core-util-is": {
+                          "version": "1.0.1",
+                          "from": "core-util-is@~1.0.0"
+                        },
+                        "isarray": {
+                          "version": "0.0.1",
+                          "from": "isarray@0.0.1"
+                        },
+                        "string_decoder": {
+                          "version": "0.10.31",
+                          "from": "string_decoder@~0.10.x"
+                        },
+                        "inherits": {
+                          "version": "2.0.1",
+                          "from": "inherits@~2.0.1"
+                        }
+                      }
+                    },
+                    "xtend": {
+                      "version": "4.0.0",
+                      "from": "xtend@>=4.0.0 <4.1.0-0"
+                    }
+                  }
+                }
+              }
+            },
+            "libmime": {
+              "version": "0.1.7",
+              "from": "libmime@^0.1.7",
+              "dependencies": {
+                "iconv-lite": {
+                  "version": "0.4.7",
+                  "from": "iconv-lite@^0.4.4"
+                },
+                "libbase64": {
+                  "version": "0.1.0",
+                  "from": "libbase64@^0.1.0"
+                },
+                "libqp": {
+                  "version": "0.1.1",
+                  "from": "libqp@^0.1.1"
+                }
+              }
+            },
+            "nodemailer-direct-transport": {
+              "version": "1.0.2",
+              "from": "nodemailer-direct-transport@^1.0.2",
+              "dependencies": {
+                "smtp-connection": {
+                  "version": "1.2.0",
+                  "from": "smtp-connection@^1.2.0"
+                }
+              }
+            },
+            "nodemailer-smtp-transport": {
+              "version": "1.0.2",
+              "from": "nodemailer-smtp-transport@^1.0.2",
+              "dependencies": {
+                "nodemailer-wellknown": {
+                  "version": "0.1.5",
+                  "from": "nodemailer-wellknown@^0.1.5"
+                },
+                "smtp-connection": {
+                  "version": "1.2.0",
+                  "from": "smtp-connection@^1.2.0"
+                }
+              }
+            }
+          }
+        },
+        "nodemailer-html-to-text": {
+          "version": "1.0.1",
+          "from": "nodemailer-html-to-text@>=1.0.0",
+          "resolved": "http://registry.nodejitsu.com/nodemailer-html-to-text/-/nodemailer-html-to-text-1.0.1.tgz",
+          "dependencies": {
+            "html-to-text": {
+              "version": "1.2.1",
+              "from": "html-to-text@^1.2.1",
+              "resolved": "http://registry.nodejitsu.com/html-to-text/-/html-to-text-1.2.1.tgz",
+              "dependencies": {
+                "htmlparser": {
+                  "version": "1.7.7",
+                  "from": "htmlparser@1.x.x"
+                },
+                "underscore.string": {
+                  "version": "2.4.0",
+                  "from": "underscore.string@2.x.x"
+                },
+                "optimist": {
+                  "version": "0.6.1",
+                  "from": "optimist@0.x.x",
+                  "dependencies": {
+                    "wordwrap": {
+                      "version": "0.0.2",
+                      "from": "wordwrap@~0.0.2"
+                    },
+                    "minimist": {
+                      "version": "0.0.10",
+                      "from": "minimist@~0.0.1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "underscore": {
+          "version": "1.8.2",
+          "from": "underscore@>=1.7.0"
+        }
+      }
+    },
+    "teacup": {
+      "version": "1.2.0",
+      "from": "teacup@"
     }
   }
 }
