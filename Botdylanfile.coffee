@@ -6,20 +6,14 @@ module.exports =
   port: process.env.PORT or 5000
   repositories:
    "goodeggs/garbanzo":
-     crons:
-       "0 0 */1 * * *": ['goodeggs-dependencies']
      hooks:
        'push': ['data-model-changes']
+
    "goodeggs/kale":
-     crons:
-       "0 0 */1 * * *": ['goodeggs-dependencies']
-   "goodeggs/lentil":
-     crons:
-       "0 0 */1 * * *": ['goodeggs-dependencies']
-   "goodeggs/admin":
-     crons:
-       "0 0 */1 * * *": ['goodeggs-dependencies']
-   "goodeggs/manage":
-     crons:
-       "0 0 */1 * * *": ['goodeggs-dependencies']
+     hooks:
+       'push': ['data-model-changes']
+
+   "goodeggs/orzo":
+     hooks:
+       'push': ['data-model-changes']
 
