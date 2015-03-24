@@ -9,9 +9,9 @@ module.exports = (bot, repo, payload) ->
     bot.trace "data-model-changes #{repo.owner}/#{repo.name}: #{util.format args...}"
   emailer.configure
     settings:
-      mailerUsername: 'goodeggs'
-      mailerPassword: process.env.SENDGRID_PASSWORD
-      appInstance: process.env.appInstance or 'localhost'
+      mailerUsername: process.env.MAILER_USERNAME
+      mailerPassword: process.env.MAILER_PASSWORD
+      appInstance: process.env.APP_INSTANCE or 'localhost'
       mailerWhitelist: ['bob@goodeggs.com', 'aaron@goodeggs.com']
       mailerIgnoreWhitelist: process.env.MAILER_IGNORE_WHITELIST in ['true', '1']
       logger: error: trace, info: trace
