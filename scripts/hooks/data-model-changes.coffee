@@ -71,6 +71,7 @@ buildEmail = ({repo, payload, modelChanges}) ->
   return {
     to: "#{payload.head_commit.author.name} <#{payload.head_commit.author.email}>"
     from: 'delivery-eng+fairy@goodeggs.com'
+    bcc: 'delivery-eng+fairy@goodeggs.com'
     replyTo: 'data@goodeggs.com'
     subject: "Data model changes in #{repo.owner}/#{repo.name} ##{payload.after[0...7]}"
     html: template(repo, payload, modelChanges)
