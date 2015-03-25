@@ -18,7 +18,7 @@ module.exports = (bot, repo, payload) ->
   emailer.connect()
   FILE_BLACKLIST = /^src\/orzo/
 
-  return unless payload.ref is 'refs/heads/fairy-testing'
+  return unless payload.ref is 'refs/heads/master'
   return if payload.before is '0000000000000000000000000000000000000000' # no ancestor
 
   fibrous.run ->
