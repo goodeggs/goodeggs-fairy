@@ -4,7 +4,7 @@
   "description": "Our own botdylan instance.",
   "main": "index.js",
   "engines": {
-    "node": "0.12"
+    "node": "0.10.36"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

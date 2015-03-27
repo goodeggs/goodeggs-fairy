@@ -7,14 +7,15 @@ util = require 'util'
 fileHasModelBuilder = (repo, blacklist=/(?!x)x/) ->
   cache = {}
   fibrous (filename, ref) ->
-    console.log "fileHasModel checking #{filename} #{ref}"
-    if (state = cache[filename])?
+    console.log "fileHasModel checking #{filename} @ #{ref}"
+    key = "#{filename}@#{ref}"
+    if (state = cache[key])?
       # we're done
     else if blacklist.test(filename)
-      state = cache[filename] = false
+      state = cache[key] = false
     else
       file = repo.sync.getFile filename, {ref}
-      state = cache[filename] = !!file.content().match(/mongoose[.]model/)
+      state = cache[key] = !!file.content().match(/mongoose[.]model/)
     console.log "fileHasModel #{filename} #{ref} #{state and 'is' or 'is not'} model"
     return state
 
@@ -40,12 +41,12 @@ module.exports = (bot, repo, payload) ->
 
     modelChanges = []
     fileHasModel = fileHasModelBuilder repo, FILE_BLACKLIST
-    {after, commits} = payload
+    {after, before, commits} = payload
 
     for commit in commits
       trace "commit #{commit.id}"
       filenames = _.union(commit.added, commit.removed, commit.modified) 
-      for filename in filenames when fileHasModel.sync(filename)
+      for filename in filenames when fileHasModel.sync(filename, before) or fileHasModel.sync(filename, after)
         trace "file #{filename} is a model"
         fullCommit = repo.sync.getCommit commit.id
         {patch} = _.find fullCommit.files, (file) -> file.filename is filename
@@ -60,9 +61,8 @@ module.exports = (bot, repo, payload) ->
 
   , (err) ->
     if err?
-      if err instanceof HttpError
-        console.error("HttpError #{error.code}: #{error.message}")
-        console.error(err.stack.split("\n")[1..].join("\n"))
+      if typeof err is 'string'
+        console.error new Error(err)
       else
         console.error(err.stack or err)
     emailer.disconnect()
