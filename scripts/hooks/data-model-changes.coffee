@@ -2,10 +2,12 @@ fibrous = require 'fibrous'
 Github = require 'goodeggs-fairy/app-services/github'
 emailer = require 'goodeggs-emailer'
 util = require 'util'
+{HttpError} = require 'github'
 
 fileHasModelBuilder = (repo, blacklist=/(?!x)x/) ->
   cache = {}
   fibrous (filename, ref) ->
+    console.log "fileHasModel checking #{filename} #{ref}"
     if (state = cache[filename])?
       # we're done
     else if blacklist.test(filename)
@@ -13,6 +15,7 @@ fileHasModelBuilder = (repo, blacklist=/(?!x)x/) ->
     else
       file = repo.sync.getFile filename, {ref}
       state = cache[filename] = !!file.content().match(/mongoose[.]model/)
+    console.log "fileHasModel #{filename} #{ref} #{state and 'is' or 'is not'} model"
     return state
 
 module.exports = (bot, repo, payload) ->
@@ -40,8 +43,10 @@ module.exports = (bot, repo, payload) ->
     {after, commits} = payload
 
     for commit in commits
+      trace "commit #{commit.id}"
       filenames = _.union(commit.added, commit.removed, commit.modified) 
       for filename in filenames when fileHasModel.sync(filename)
+        trace "file #{filename} is a model"
         fullCommit = repo.sync.getCommit commit.id
         {patch} = _.find fullCommit.files, (file) -> file.filename is filename
         modelChanges.push {filename, sha: commit.id, url: fullCommit.html_url, patch, author: commit.author}
@@ -54,7 +59,12 @@ module.exports = (bot, repo, payload) ->
       emailer.sync.send buildEmail({recipient, repo, payload, modelChanges})
 
   , (err) ->
-    console.error(err.stack or err) if err?
+    if err?
+      if err instanceof HttpError
+        console.error("HttpError #{error.code}: #{error.message}")
+        console.error(err.stack.split("\n")[1..].join("\n"))
+      else
+        console.error(err.stack or err)
     emailer.disconnect()
     trace 'finished'
 
@@ -88,7 +98,7 @@ buildEmail = ({recipient, repo, payload, modelChanges}) ->
   return {
     to: recipient
     from: 'delivery-eng+fairy@goodeggs.com'
-    bcc: 'delivery-eng+fairy@goodeggs.com'
+    cc: 'delivery-eng@goodeggs.com'
     replyTo: 'data@goodeggs.com'
     subject: "Data model changes in #{repo.owner}/#{repo.name} ##{payload.after[0...7]}"
     html: template(repo, payload, modelChanges)
