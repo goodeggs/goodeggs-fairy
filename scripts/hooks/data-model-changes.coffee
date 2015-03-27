@@ -3,6 +3,18 @@ Github = require 'goodeggs-fairy/app-services/github'
 emailer = require 'goodeggs-emailer'
 util = require 'util'
 
+fileHasModelBuilder = (repo, blacklist=/(?!x)x/) ->
+  cache = {}
+  fibrous (filename, ref) ->
+    if (state = cache[filename])?
+      # we're done
+    else if blacklist.test(filename)
+      state = cache[filename] = false
+    else
+      file = repo.sync.getFile filename, {ref}
+      state = cache[filename] = !!file.content().match(/mongoose[.]model/)
+    return state
+
 module.exports = (bot, repo, payload) ->
   repo = new Github(bot).repo(owner: repo.owner, name: repo.name)
   trace = (args...) ->
@@ -19,24 +31,27 @@ module.exports = (bot, repo, payload) ->
   FILE_BLACKLIST = /^src\/orzo/
 
   return unless payload.ref is 'refs/heads/master'
-  return if payload.before is '0000000000000000000000000000000000000000' # no ancestor
 
   fibrous.run ->
     trace 'starting'
 
     modelChanges = []
-    {before, after} = payload
+    fileHasModel = fileHasModelBuilder repo, FILE_BLACKLIST
+    {after, commits} = payload
 
-    diff = repo.sync.compareCommits base: before, head: after
-
-    for {filename, patch} in diff.files when !FILE_BLACKLIST.test(filename)
-      file = repo.sync.getFile filename, ref: after
-      if file.content().match /mongoose[.]model/
-        modelChanges.push {filename, patch}
+    for commit in commits
+      filenames = _.union(commit.added, commit.removed, commit.modified) 
+      for filename in filenames when fileHasModel.sync(filename)
+        fullCommit = repo.sync.getCommit commit.id
+        {patch} = _.find fullCommit.files, (file) -> file.filename is filename
+        modelChanges.push {filename, sha: commit.id, url: fullCommit.html_url, patch, author: commit.author}
 
     return unless modelChanges.length
 
-    emailer.sync.send buildEmail({repo, payload, modelChanges})
+    modelChangesByRecipient = _.groupBy modelChanges, ({author}) -> "#{author.name} <#{author.email}>"
+
+    for recipient, modelChanges of modelChangesByRecipient
+      emailer.sync.send buildEmail({recipient, repo, payload, modelChanges})
 
   , (err) ->
     console.error(err.stack or err) if err?
@@ -44,7 +59,7 @@ module.exports = (bot, repo, payload) ->
     trace 'finished'
 
 
-buildEmail = ({repo, payload, modelChanges}) ->
+buildEmail = ({recipient, repo, payload, modelChanges}) ->
   {renderable, p, pre, code, a, h6, text, br, div, strong} = require 'teacup'
 
   pluralize = (len, singular, plural) ->
@@ -52,24 +67,26 @@ buildEmail = ({repo, payload, modelChanges}) ->
 
   template = renderable (repo, payload, modelChanges) ->
     p ->
-      text "In your recent push to #{repo.owner}/#{repo.name} #"
-      a href: payload.compare, payload.after[0...7]
-      text ", I detected changes to #{modelChanges.length} #{pluralize modelChanges.length, 'file', 'files'} containing Mongoose models.  Please review the #{pluralize modelChanges.length, 'diff', 'diffs'} below and consider notifying the Data Team (you can reply directly to this email)."
+      text 'In a recent '
+      a href: payload.compare, 'push'
+      text " to #{repo.owner}/#{repo.name}, I detected #{modelChanges.length} #{pluralize modelChanges.length, 'change', 'changes'} to files containing Mongoose models.  Please review the #{pluralize modelChanges.length, 'diff', 'diffs'} below and consider notifying the Data Team (you can reply directly to this email)."
 
     p ->
       text 'Thanks,'
       br()
       text '--The Good Eggs Fairy'
 
-    for {filename, patch} in modelChanges
+    for {filename, url, sha, patch} in modelChanges
       div ->
         div ->
-          strong filename
+          strong ->
+            text "#{filename} @ "
+            a href: url, sha[0...7]
         pre ->
           code patch
 
   return {
-    to: "#{payload.head_commit.author.name} <#{payload.head_commit.author.email}>"
+    to: recipient
     from: 'delivery-eng+fairy@goodeggs.com'
     bcc: 'delivery-eng+fairy@goodeggs.com'
     replyTo: 'data@goodeggs.com'
