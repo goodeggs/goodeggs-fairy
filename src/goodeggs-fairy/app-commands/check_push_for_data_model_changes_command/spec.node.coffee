@@ -1,8 +1,10 @@
 require 'goodeggs-fairy/app-support/spec_helpers/node'
-CheckPushForDataModelChangesCommand = require 'goodeggs-fairy/app-commands/check_push_for_data_model_changes_command'
-RepoHelper = require 'goodeggs-fairy/app-commands/check_push_for_data_model_changes_command/repo_helper'
+
 GithubRepo = require 'goodeggs-fairy/app-services/github/github_repo'
 emailer = require 'goodeggs-emailer'
+
+CheckPushForDataModelChangesCommand = require './'
+RepoHelper = require './repo_helper'
 makePushPayload = require './spec_fixtures/push'
 makeDiffPayload = require './spec_fixtures/diff'
 

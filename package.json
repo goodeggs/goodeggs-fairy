@@ -7,7 +7,7 @@
     "node": "0.10.36"
   },
   "scripts": {
-    "test": "mocha --compilers=coffee:coffee-script/register --ui=mocha-fibers --ui=mocha-lazy-bdd --reporter=spec src/**/*.node.spec.coffee"
+    "test": "mocha --compilers=coffee:coffee-script/register --ui=mocha-fibers --ui=mocha-lazy-bdd --reporter=spec src/**/spec.node.coffee"
   },
   "repository": {
     "type": "git",
