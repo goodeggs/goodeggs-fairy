@@ -4,10 +4,10 @@
   "description": "Our own botdylan instance.",
   "main": "index.js",
   "engines": {
-    "node": "0.12"
+    "node": "0.10.36"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers=coffee:coffee-script/register --ui=mocha-fibers --ui=mocha-lazy-bdd --reporter=spec src/**/spec.node.coffee"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,15 @@
     "request": "^2.53.0",
     "github": "^0.2.3",
     "goodeggs-emailer": "^1.5.2",
-    "teacup": "^1.2.0"
+    "teacup": "^1.2.0",
+    "async": "^0.9.0",
+    "lodash": "^3.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha-fibers": "^1.1.0",
+    "mocha": "^2.2.1",
+    "goodeggs-spec-helpers": "^0.5.0",
+    "mocha-lazy-bdd": "0.0.5",
+    "coffee-cache": "^1.0.2"
+  }
 }

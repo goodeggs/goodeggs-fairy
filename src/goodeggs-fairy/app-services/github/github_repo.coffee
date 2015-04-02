@@ -11,6 +11,9 @@ class GithubRepo
     raw = @_client.repos.sync.getContent {@user, @repo, path, ref}
     new GithubFileGateway raw
 
+  getCommit: fibrous (sha) ->
+    @_client.repos.sync.getCommit {@user, @repo, sha}
+
   compareCommits: fibrous ({base, head}) ->
     @_client.repos.sync.compareCommits {@user, @repo, base, head}
 
