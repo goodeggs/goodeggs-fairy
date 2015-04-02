@@ -1,6 +1,7 @@
 fibrous = require 'fibrous'
 Github = require 'goodeggs-fairy/app-services/github'
 CheckPushForDataModelChangesCommand = require 'goodeggs-fairy/app-commands/check_push_for_data_model_changes_command'
+emailer = require 'goodeggs-emailer'
 
 module.exports = (bot, repo, payload) ->
   repo = new Github(bot).repo(owner: repo.owner, name: repo.name)
