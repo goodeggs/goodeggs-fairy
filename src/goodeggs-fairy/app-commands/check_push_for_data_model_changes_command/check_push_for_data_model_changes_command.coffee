@@ -2,7 +2,9 @@ fibrous = require 'fibrous'
 emailer = require 'goodeggs-emailer'
 util = require 'util'
 {HttpError} = require 'github'
-Set = require 'set'
+_ = require 'lodash'
+
+RepoHelper = require './repo_helper'
 
 FILE_BLACKLIST = /^src\/orzo/
 
@@ -16,7 +18,7 @@ class CheckPushForDataModelChangesCommand
     return unless @payload.ref is 'refs/heads/master'
 
     modelChanges = []
-    fileHasModel = fileHasModelBuilder @repo, FILE_BLACKLIST
+    repoHelper = new RepoHelper @repo
     {after, before, commits, pusher} = @payload
 
     diff = @repo.sync.compareCommits base: before, head: after
@@ -27,35 +29,19 @@ class CheckPushForDataModelChangesCommand
     modelChanges = {}
 
     for file in diff.files
-      modelChanges[file.filename] = file if false \
-        or (status in ['removed', 'modified'] and fileHasModel.sync(file.filename, before)) \
-        or (status in ['added', 'modified'] and fileHasModel.sync(file.filename, after))
+      modelChanges[file.filename] = file if !FILE_BLACKLIST.test(filename) and
+        (file.status in ['removed', 'modified'] and repoHelper.sync.fileHasModel(file.filename, before)) or
+        (file.status in ['added', 'modified'] and repoHelper.sync.fileHasModel(file.filename, after))
 
     for commit in commits
       for filename in _.union(commit.added, commit.deleted, commit.modified)
         continue unless modelChange = modelChanges[filename]
-        modelChange.authors ?= new Set
-        modelChange.authors.add commit.author
+        modelChange.authors ?= []
+        modelChange.authors.push commit.author
 
     for filename, modelChange of modelChanges
-      recipients = modelChange.authors.get().map (author) -> "#{author.name} <#{author.email}>"
+      recipients = _.uniq modelChange.authors.map (author) -> "#{author.name} <#{author.email}>"
       emailer.sync.send buildEmail({@repo, @payload, recipients, modelChange})
-
-
-fileHasModelBuilder = (repo, blacklist=/(?!x)x/) ->
-  cache = {}
-  fibrous (filename, ref) ->
-    console.log "fileHasModel checking #{filename} @ #{ref}"
-    key = "#{filename}@#{ref}"
-    if (state = cache[key])?
-      # we're done
-    else if blacklist.test(filename)
-      state = cache[key] = false
-    else
-      file = repo.sync.getFile filename, {ref}
-      state = cache[key] = !!file.content().match(/mongoose[.]model/)
-    console.log "fileHasModel #{filename} #{ref} #{state and 'is' or 'is not'} model"
-    return state
 
 buildEmail = ({repo, payload, recipients, modelChange}) ->
   {renderable, p, pre, code, a, h6, text, br, div, strong} = require 'teacup'
@@ -88,7 +74,7 @@ buildEmail = ({repo, payload, recipients, modelChange}) ->
     cc: ['delivery-eng@goodeggs.com'].concat(recipients).join(', ')
     replyTo: 'data@goodeggs.com'
     subject: "Data model changes in #{repo.owner}/#{repo.name} #{modelChange.filename} push #{payload.after[0...7]}"
-    html: template({repo, payload, modelChanges})
+    html: template({repo, payload, modelChange})
   }
 
 buildDiffWarningEmail = ({diff}) ->
