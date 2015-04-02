@@ -1,4 +1,5 @@
 async = require 'async'
+fibrous = require 'fibrous'
 
 class RepoHelper
 
