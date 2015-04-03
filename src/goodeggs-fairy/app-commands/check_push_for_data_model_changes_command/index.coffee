@@ -82,7 +82,7 @@ buildDiffWarningEmail = ({diff}) ->
     to: 'delivery-eng@goodeggs.com'
     from: 'delivery-eng+fairy@goodeggs.com'
     subject: 'data-model-changes hit diff threshold'
-    body: """
+    text: """
       You asked me to warn you when I asked Github for a diff that spanned 250 or more commits, and I just did:
       
       #{diff.html_url}
