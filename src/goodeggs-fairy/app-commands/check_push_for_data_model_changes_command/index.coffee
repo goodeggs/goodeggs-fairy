@@ -3,6 +3,7 @@ emailer = require 'goodeggs-emailer'
 util = require 'util'
 {HttpError} = require 'github'
 _ = require 'lodash'
+Folks = require 'goodeggs-fairy/app-services/folks'
 
 RepoHelper = require './repo_helper'
 
@@ -19,6 +20,7 @@ class CheckPushForDataModelChangesCommand
 
     modelChanges = []
     repoHelper = new RepoHelper @repo
+    folks = Folks.sync.getInstance()
     {after, before, commits, pusher} = @payload
 
     diff = @repo.sync.compareCommits base: before, head: after
@@ -39,11 +41,12 @@ class CheckPushForDataModelChangesCommand
         modelChange.authors ?= []
         modelChange.authors.push commit.author
 
+    pusher = folks.recipient(@payload.pusher.name) or "#{@payload.pusher.name} <#{@payload.pusher.email}>"
     for filename, modelChange of modelChanges
-      recipients = _.uniq modelChange.authors.map (author) -> "#{author.name} <#{author.email}>"
-      emailer.sync.send buildEmail({@repo, @payload, recipients, modelChange})
+      recipients = _.uniq modelChange.authors.map (author) -> folks.recipient(author.username) or "#{author.name} <#{author.email}>"
+      emailer.sync.send buildEmail({@repo, @payload, pusher, recipients, modelChange})
 
-buildEmail = ({repo, payload, recipients, modelChange}) ->
+buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
   {renderable, p, pre, code, a, h6, text, br, div, strong} = require 'teacup'
 
   pluralize = (len, singular, plural) ->
@@ -69,7 +72,7 @@ buildEmail = ({repo, payload, recipients, modelChange}) ->
         code modelChange.patch
 
   return {
-    to: "#{payload.pusher.name} <#{payload.pusher.email}>"
+    to: pusher
     from: 'delivery-eng+fairy@goodeggs.com'
     cc: ['delivery-eng@goodeggs.com'].concat(recipients).join(', ')
     replyTo: 'data@goodeggs.com'

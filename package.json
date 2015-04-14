@@ -25,17 +25,18 @@
   },
   "homepage": "https://github.com/goodeggs/goodeggs-fairy",
   "dependencies": {
+    "async": "^0.9.0",
     "botdylan": "git+https://github.com/goodeggs/botdylan.git",
     "coffee-script": "^1.9.1",
-    "fibrous": "^0.3.3",
     "fibers": "^1.0.5",
-    "semver": "^4.3.1",
-    "request": "^2.53.0",
+    "fibrous": "^0.3.3",
     "github": "^0.2.3",
     "goodeggs-emailer": "^1.5.2",
-    "teacup": "^1.2.0",
-    "async": "^0.9.0",
-    "lodash": "^3.6.0"
+    "js-yaml": "^3.2.7",
+    "lodash": "^3.6.0",
+    "request": "^2.53.0",
+    "semver": "^4.3.1",
+    "teacup": "^1.2.0"
   },
   "devDependencies": {
     "mocha-fibers": "^1.1.0",

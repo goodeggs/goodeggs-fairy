@@ -1,6 +1,7 @@
 require 'goodeggs-fairy/app-support/spec_helpers/node'
 
 GithubRepo = require 'goodeggs-fairy/app-services/github/github_repo'
+Folks = require 'goodeggs-fairy/app-services/folks'
 emailer = require 'goodeggs-emailer'
 
 CheckPushForDataModelChangesCommand = require './'
@@ -14,6 +15,7 @@ describe 'CheckPushForDataModelChangesCommand', ->
   {repo, command} = {}
 
   beforeEach ->
+    @sinon.stub(Folks, 'getInstance').yields null, new Folks([{name: 'John Rothfels', username: 'john', github: 'rothfels'}])
     @sinon.stub(emailer, 'send').yields()
     repo = sinon.createStubInstance GithubRepo
     repo.owner = 'goodeggs'
@@ -49,7 +51,7 @@ describe 'CheckPushForDataModelChangesCommand', ->
         it 'emails', ->
           expect(emailer.send).to.have.been.calledOnce
           expect(emailer.send).to.have.been.calledWithMatch
-            to: 'rothfels <john.rothfels@gmail.com>'
-            cc: 'delivery-eng@goodeggs.com, John Rothfels <john.rothfels@gmail.com>'
+            to: 'John Rothfels <john@goodeggs.com>'
+            cc: 'delivery-eng@goodeggs.com, John Rothfels <john@goodeggs.com>'
             subject: "Data model changes in goodeggs/garbanzo src/nettle/server/jobs/product_constraint_failure_reporter.coffee push f93e0fb"
 

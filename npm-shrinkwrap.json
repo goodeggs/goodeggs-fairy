@@ -1360,6 +1360,26 @@
     "lodash": {
       "version": "3.6.0",
       "from": "lodash@"
+    },
+    "js-yaml": {
+      "version": "3.2.7",
+      "from": "js-yaml@",
+      "dependencies": {
+        "argparse": {
+          "version": "1.0.2",
+          "from": "argparse@~ 1.0.0",
+          "dependencies": {
+            "sprintf-js": {
+              "version": "1.0.2",
+              "from": "sprintf-js@~1.0.2"
+            }
+          }
+        },
+        "esprima": {
+          "version": "2.0.0",
+          "from": "esprima@~ 2.0.0"
+        }
+      }
     }
   }
 }
