@@ -17,7 +17,8 @@ class Folks
     # NOOP
   
   recipient: (username) ->
-    person = _.find @_folks, ({github}) -> github is username
+    username = username.toLowerCase()
+    person = _.find @_folks, ({github}) -> github.toLowerCase() is username
     person? and "#{person.name} <#{person.username}@goodeggs.com>"
 
 module.exports = Folks
