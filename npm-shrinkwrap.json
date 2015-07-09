@@ -500,32 +500,32 @@
                 "qs": {
                   "version": "0.6.5",
                   "from": "qs@0.6.5",
-                  "resolved": "http://registry.nodejitsu.com/qs/-/qs-0.6.5.tgz"
+                  "resolved": "https://npm.goodeggs.com/qs/-/qs-0.6.5.tgz"
                 },
                 "formidable": {
                   "version": "1.0.9",
                   "from": "formidable@1.0.9",
-                  "resolved": "http://registry.nodejitsu.com/formidable/-/formidable-1.0.9.tgz"
+                  "resolved": "https://npm.goodeggs.com/formidable/-/formidable-1.0.9.tgz"
                 },
                 "mime": {
                   "version": "1.2.5",
                   "from": "mime@1.2.5",
-                  "resolved": "http://registry.nodejitsu.com/mime/-/mime-1.2.5.tgz"
+                  "resolved": "https://npm.goodeggs.com/mime/-/mime-1.2.5.tgz"
                 },
                 "emitter-component": {
                   "version": "1.0.0",
                   "from": "emitter-component@1.0.0",
-                  "resolved": "http://registry.nodejitsu.com/emitter-component/-/emitter-component-1.0.0.tgz"
+                  "resolved": "https://npm.goodeggs.com/emitter-component/-/emitter-component-1.0.0.tgz"
                 },
                 "methods": {
                   "version": "0.0.1",
                   "from": "methods@0.0.1",
-                  "resolved": "http://registry.nodejitsu.com/methods/-/methods-0.0.1.tgz"
+                  "resolved": "https://npm.goodeggs.com/methods/-/methods-0.0.1.tgz"
                 },
                 "cookiejar": {
                   "version": "1.3.0",
                   "from": "cookiejar@1.3.0",
-                  "resolved": "http://registry.nodejitsu.com/cookiejar/-/cookiejar-1.3.0.tgz"
+                  "resolved": "https://npm.goodeggs.com/cookiejar/-/cookiejar-1.3.0.tgz"
                 },
                 "debug": {
                   "version": "0.7.4",
@@ -694,12 +694,12 @@
         "nodemailer-html-to-text": {
           "version": "1.0.1",
           "from": "nodemailer-html-to-text@>=1.0.0",
-          "resolved": "http://registry.nodejitsu.com/nodemailer-html-to-text/-/nodemailer-html-to-text-1.0.1.tgz",
+          "resolved": "https://npm.goodeggs.com/nodemailer-html-to-text/-/nodemailer-html-to-text-1.0.1.tgz",
           "dependencies": {
             "html-to-text": {
               "version": "1.2.1",
               "from": "html-to-text@^1.2.1",
-              "resolved": "http://registry.nodejitsu.com/html-to-text/-/html-to-text-1.2.1.tgz",
+              "resolved": "https://npm.goodeggs.com/html-to-text/-/html-to-text-1.2.1.tgz",
               "dependencies": {
                 "htmlparser": {
                   "version": "1.7.7",
@@ -936,7 +936,7 @@
                         "concat-map": {
                           "version": "0.0.1",
                           "from": "concat-map@0.0.1",
-                          "resolved": "http://registry.nodejitsu.com/concat-map/-/concat-map-0.0.1.tgz"
+                          "resolved": "https://npm.goodeggs.com/concat-map/-/concat-map-0.0.1.tgz"
                         }
                       }
                     }
@@ -945,12 +945,12 @@
                 "mkdirp": {
                   "version": "0.5.0",
                   "from": "mkdirp@^0.5.0",
-                  "resolved": "http://registry.nodejitsu.com/mkdirp/-/mkdirp-0.5.0.tgz",
+                  "resolved": "https://npm.goodeggs.com/mkdirp/-/mkdirp-0.5.0.tgz",
                   "dependencies": {
                     "minimist": {
                       "version": "0.0.8",
                       "from": "minimist@0.0.8",
-                      "resolved": "http://registry.nodejitsu.com/minimist/-/minimist-0.0.8.tgz"
+                      "resolved": "https://npm.goodeggs.com/minimist/-/minimist-0.0.8.tgz"
                     }
                   }
                 },
@@ -1113,7 +1113,7 @@
                     "hawk": {
                       "version": "1.1.1",
                       "from": "hawk@1.1.1",
-                      "resolved": "http://registry.nodejitsu.com/hawk/-/hawk-1.1.1.tgz",
+                      "resolved": "https://npm.goodeggs.com/hawk/-/hawk-1.1.1.tgz",
                       "dependencies": {
                         "hoek": {
                           "version": "0.9.1",
@@ -1262,7 +1262,7 @@
                 "ms": {
                   "version": "0.6.2",
                   "from": "ms@0.6.2",
-                  "resolved": "http://registry.nodejitsu.com/ms/-/ms-0.6.2.tgz"
+                  "resolved": "https://npm.goodeggs.com/ms/-/ms-0.6.2.tgz"
                 }
               }
             },
@@ -1313,24 +1313,24 @@
                 "commander": {
                   "version": "0.6.1",
                   "from": "commander@0.6.1",
-                  "resolved": "http://registry.nodejitsu.com/commander/-/commander-0.6.1.tgz"
+                  "resolved": "https://npm.goodeggs.com/commander/-/commander-0.6.1.tgz"
                 },
                 "mkdirp": {
                   "version": "0.3.0",
                   "from": "mkdirp@0.3.0",
-                  "resolved": "http://registry.nodejitsu.com/mkdirp/-/mkdirp-0.3.0.tgz"
+                  "resolved": "https://npm.goodeggs.com/mkdirp/-/mkdirp-0.3.0.tgz"
                 }
               }
             },
             "mkdirp": {
               "version": "0.5.0",
               "from": "mkdirp@0.5.0",
-              "resolved": "http://registry.nodejitsu.com/mkdirp/-/mkdirp-0.5.0.tgz",
+              "resolved": "https://npm.goodeggs.com/mkdirp/-/mkdirp-0.5.0.tgz",
               "dependencies": {
                 "minimist": {
                   "version": "0.0.8",
                   "from": "minimist@0.0.8",
-                  "resolved": "http://registry.nodejitsu.com/minimist/-/minimist-0.0.8.tgz"
+                  "resolved": "https://npm.goodeggs.com/minimist/-/minimist-0.0.8.tgz"
                 }
               }
             },
