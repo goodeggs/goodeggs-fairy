@@ -16,7 +16,7 @@ module.exports = (bot, repo) ->
       trace "checking module #{moduleName}"
 
       auth = new Buffer(process.env.NPM_AUTH, 'base64').toString('utf8').split(':')
-      res = request.sync.get encodeURI("https://goodeggs.registry.nodejitsu.com/#{moduleName}/latest"),
+      res = request.sync.get encodeURI("https://npm.goodeggs.com/#{moduleName}/latest"),
         auth: {user: auth[0], pass: auth[1]}
         json: true
       latestVersion = res.body.version
