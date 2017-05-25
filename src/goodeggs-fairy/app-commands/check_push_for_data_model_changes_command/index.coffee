@@ -75,7 +75,7 @@ buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
     to: pusher
     from: 'delivery-eng+fairy@goodeggs.com'
     cc: ['delivery-eng@goodeggs.com'].concat(recipients).join(', ')
-    replyTo: 'data@goodeggs.com'
+    replyTo: 'data-help@goodeggs.com'
     subject: "Data model changes in #{repo.owner}/#{repo.name} #{modelChange.filename} push #{payload.after[0...7]}"
     html: template({repo, payload, modelChange})
   }
