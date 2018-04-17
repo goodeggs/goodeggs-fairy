@@ -1,0 +1,7 @@
+name: goodeggs-fairy
+
+processes:
+  web:
+    command: botdylan
+    count: 1
+    memory: 512
