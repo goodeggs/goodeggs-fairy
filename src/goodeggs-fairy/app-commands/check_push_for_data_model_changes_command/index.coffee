@@ -47,7 +47,7 @@ class CheckPushForDataModelChangesCommand
       emailer.sync.send buildEmail({@repo, @payload, pusher, recipients, modelChange})
 
 buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
-  {renderable, p, pre, code, a, h6, text, br, div, strong} = require 'teacup'
+  {renderable, p, pre, code, a, h6, text, br, div, strong, ul, li} = require 'teacup'
 
   pluralize = (len, singular, plural) ->
     len is 1 and singular or plural
@@ -58,7 +58,14 @@ buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
       a href: payload.compare, 'push'
       text " to #{repo.owner}/#{repo.name}, "
       code modelChange.filename
-      text " was #{modelChange.status} and appears to contain Mongoose models.  Please review the diff below and consider notifying the Data Team (you can reply directly to this email)."
+      text " was #{modelChange.status} and appears to contain Mongoose models.  Please review the diff below and consider:"
+      ul ->
+        li ->
+          text 'notifying the Data Team (you can reply directly to this email)'
+        li ->
+          text 'updating '
+          a href: 'https://github.com/goodeggs/development-data-builder', 'goodeggs/development-data-builder'
+          text ' (especially if these fields contain PII)'
 
     p ->
       text 'Thanks,'
