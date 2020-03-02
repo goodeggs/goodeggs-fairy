@@ -52,6 +52,6 @@ describe 'CheckPushForDataModelChangesCommand', ->
           expect(emailer.send).to.have.been.calledOnce
           expect(emailer.send).to.have.been.calledWithMatch
             to: 'John Rothfels <john@goodeggs.com>'
-            cc: 'delivery-eng@goodeggs.com, John Rothfels <john@goodeggs.com>'
+            cc: 'data-guild@goodeggs.com, John Rothfels <john@goodeggs.com>'
             subject: "Data model changes in goodeggs/garbanzo src/nettle/server/jobs/product_constraint_failure_reporter.coffee push f93e0fb"
 

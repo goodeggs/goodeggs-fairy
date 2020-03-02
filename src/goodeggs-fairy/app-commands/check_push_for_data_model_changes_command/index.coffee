@@ -61,7 +61,7 @@ buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
       text " was #{modelChange.status} and appears to contain Mongoose models.  Please review the diff below and consider:"
       ul ->
         li ->
-          text 'notifying the Data Team (you can reply directly to this email)'
+          text 'notifying the Data Guild (you can reply directly to this email)'
         li ->
           text 'updating '
           a href: 'https://github.com/goodeggs/development-data-builder', 'goodeggs/development-data-builder'
@@ -80,25 +80,25 @@ buildEmail = ({repo, payload, pusher, recipients, modelChange}) ->
 
   return {
     to: pusher
-    from: 'delivery-eng+fairy@goodeggs.com'
-    cc: ['delivery-eng@goodeggs.com'].concat(recipients).join(', ')
-    replyTo: 'data-help@goodeggs.com'
+    from: 'devops-help+fairy@goodeggs.com'
+    cc: ['data-guild@goodeggs.com'].concat(recipients).join(', ')
+    replyTo: 'data-guild@goodeggs.com'
     subject: "Data model changes in #{repo.owner}/#{repo.name} #{modelChange.filename} push #{payload.after[0...7]}"
     html: template({repo, payload, modelChange})
   }
 
 buildDiffWarningEmail = ({diff}) ->
   return {
-    to: 'delivery-eng@goodeggs.com'
-    from: 'delivery-eng+fairy@goodeggs.com'
+    to: 'devops-help@goodeggs.com'
+    from: 'devops-help+fairy@goodeggs.com'
     subject: 'data-model-changes hit diff threshold'
     text: """
       You asked me to warn you when I asked Github for a diff that spanned 250 or more commits, and I just did:
-      
+
       #{diff.html_url}
-      
+
       Relevant docs: https://developer.github.com/v3/repos/commits/#working-with-large-comparisons
-      
+
       Cheers,
       --The Good Eggs Fairy
     """
